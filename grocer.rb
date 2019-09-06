@@ -50,20 +50,4 @@ def checkout(array, coupons)
   applied_discount = apply_clearance(applied_coupons)
   total = applied_discount.reduce(0) {acc += value[:price] * value[:count]}
   total > 100 ? total * 0.9 : total
-  
- 
 end  
-  
- # cart.each do |total_itemcost| 
- #   [:price] * [:count]
-    
- # end
- # total = final_hash[element_name][:total_itemcost].sum
- # total
- # end
-  
-  
-  # ccalculate total cost of unsorted cart
-  # apply array of coupons
-  # use 3 methods already written
-  # if cart total is over $100, additional 10% off total cost

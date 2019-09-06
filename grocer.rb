@@ -47,8 +47,9 @@ end
 def checkout(cart, coupons)
   consolidate_cart(cart)
   apply_coupons(cart, coupons)
-  cart.each do |price, count|
-    [:price] * [:count] = [:total_itemcost]
+  cart.each do |total_itemcost| 
+    [:price] * [:count]
+    
   end
   total = final_hash[element_name][:total_itemcost].sum
   total

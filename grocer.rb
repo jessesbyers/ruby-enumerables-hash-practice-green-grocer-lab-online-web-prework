@@ -50,7 +50,8 @@ def checkout(cart, coupons)
   cart.each do |price, count|
     [:price] * [:count] = [:total_itemcost]
   end
-  final_hash[element_name][:total_itemcost].sum
+  total = final_hash[element_name][:total_itemcost].sum
+  total
   end
     
   # ccalculate total cost of unsorted cart

@@ -1,15 +1,59 @@
 def consolidate_cart(cart)
-  # code here
+  #placeholder for turning array into hash
+  final_hash = {}
+  cart.each do |element_hash|
+    element_name = element_hash.keys[0]
+  #set up conditional for incrementing the count  
+    if final_hash.has_key?(element_name)
+      final_hash[element_name][:count] += 1
+    else
+      final_hash[element_name] = { 
+        count: 1, 
+        price: element_hash[element_name][:price],
+        clearance: element_hash[element_name][:clearance]
+      }
+    end
+  end
+final_hash
 end
+
 
 def apply_coupons(cart, coupons)
-  # code here
+  coupons.each do |coupon|
+    item = coupon[:item]
+    if cart[item] 
+      if cart[item][:count] >= coupon[:num] && !cart["#{item} W/COUPON"] 
+       cart["#{item} W/COUPON"] = {price: coupon[:cost] / coupon[:num], clearance: cart[item][:clearance], count: coupon[:num]}
+       cart[item][:count] -= coupon[:num] 
+    elsif cart[item][:count] >= coupon[:num] && cart["#{item} W/COUPON"]
+     cart["#{item} W/COUPON"][:count] += coupon[:num]
+     cart[item][:count] -= coupon[:num]
+    end
+  end
+end
+cart
 end
 
+
 def apply_clearance(cart)
-  # code here
+  cart.each do |product_name, stats|
+    if stats[:clearance] 
+      stats[:price] = (stats[:price] * 0.8).round(2)
+    end
+  end
+    cart
 end
 
 def checkout(cart, coupons)
-  # code here
-end
+  consolidate_cart(cart)
+  apply_coupons(cart, coupons)
+  cart.each do |price, count|
+    [:price] * [:count] = [:total_itemcost]
+  end
+  final_hash[element_name][:total_itemcost].sum
+  end
+    
+  # ccalculate total cost of unsorted cart
+  # apply array of coupons
+  # use 3 methods already written
+  # if cart total is over $100, additional 10% off total cost
